@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>IBM Bob Lab — Day 2 Hands-On Kit</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html">Exercise 3</a></li>
+    <li><a href="ex4-wow.html">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge both">Day 2 — Hands-On Lab</span>
+    <h1>Welcome to the IBM Bob Lab</h1>
+    <p class="subtitle">45 minutes. Two teams. One AI. See what's possible.</p>
+    <div class="meta">
+      <span>⏱ 45 minutes</span>
+      <span>👥 Two tracks: BW/HANA &amp; Databricks</span>
+      <span>💻 Works fully offline</span>
+    </div>
+  </header>
+
+  <!-- Progress -->
+  <div class="progress-bar">
+    <span class="step active">🏠 Start</span>
+    <a class="step" href="ex1-basics.html">1 · Basics</a>
+    <a class="step" href="ex2a-bw.html">2A · BW</a>
+    <a class="step" href="ex2b-databricks.html">2B · Databricks</a>
+    <a class="step" href="ex3-mcp.html">3 · MCP</a>
+    <a class="step" href="ex4-wow.html">⭐ Finale</a>
+  </div>
+
+  <!-- What is Bob -->
+  <div class="section">
+    <h2><span class="step-num">?</span> What is IBM Bob?</h2>
+    <p>Bob is an AI coding assistant that runs <strong>directly in VS Code</strong> — on your laptop, inside your workspace. It reads your files, understands your context, and helps you think, write, and build faster.</p>
+    <p>Think of Bob as a team member who has read every document in your project and is always available to answer questions, generate artefacts, or connect to external systems.</p>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Today you will experience Bob in three ways:</strong>
+      <ul style="margin-top:0.4rem">
+        <li><strong>As an Analyst</strong> — ask questions, get structured answers from your files</li>
+        <li><strong>As a Generator</strong> — one phrase produces a full discovery report or validation scorecard</li>
+        <li><strong>As an Orchestrator</strong> — Bob calls a live external API through an MCP connection</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Today's flow -->
+  <div class="section">
+    <h2><span class="step-num">📋</span> Today's Plan</h2>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+      <thead>
+        <tr style="background:#f4f4f4;">
+          <th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid #e0e0e0;">Time</th>
+          <th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid #e0e0e0;">Activity</th>
+          <th style="text-align:left;padding:0.5rem 0.75rem;border-bottom:2px solid #e0e0e0;">Who</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;">0 – 5 min</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;">Open your VM, launch VS Code, open your starter kit folder</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><span class="tag both">Everyone</span></td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;">5 – 12 min</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><strong>Exercise 1</strong> — Bob Basics (2 micro-tasks + modes overview)</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><span class="tag both">Everyone</span></td>
+        </tr>
+        <tr>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;">12 – 28 min</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><strong>Exercise 2</strong> — Track exercise (split teams) — allow Bob extra time to respond</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><span class="tag bw">BW Team</span> or <span class="tag databricks">Databricks Team</span></td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;">28 – 38 min</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><strong>Exercise 3</strong> — Connect Bob to a live system (MCP)</td>
+          <td style="padding:0.5rem 0.75rem;border-bottom:1px solid #e0e0e0;"><span class="tag both">Everyone</span></td>
+        </tr>
+        <tr>
+          <td style="padding:0.5rem 0.75rem;">38 – 45 min</td>
+          <td style="padding:0.5rem 0.75rem;"><strong>Finale</strong> — Final prompt + discussion</td>
+          <td style="padding:0.5rem 0.75rem;"><span class="tag both">Everyone</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Step 0: Access -->
+  <div class="section">
+    <h2><span class="step-num">0</span> Before You Start — Opening Bob IDE</h2>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>Bob IDE is already installed on your VM.</strong> You do not need to install anything. Your starter kit folder is also already on the VM desktop — ready to open.
+    </div>
+
+    <h3>Step 1 — Log in to your VM</h3>
+    <p>Use the credentials your facilitator provided. Once the desktop loads, wait 30–60 seconds before opening anything.</p>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>The VM takes a moment to fully load.</strong> Opening Bob IDE too quickly after login can cause it to start slowly. Give it 30–60 seconds first.
+    </div>
+
+    <h3>Step 2 — Open Bob IDE</h3>
+    <p>Double-click the <strong>Bob IDE</strong> icon on the desktop. The IDE will open — it looks and works like VS Code, because it is built on it. You do not need to open VS Code separately.</p>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Bob's chat panel</strong> is on the left sidebar — it looks like a small chat bubble icon. Click it to open the chat. If you do not see it, press <code>Ctrl + Shift + P</code>, type <code>Bob</code>, and select <em>Bob: Open Chat</em>.
+    </div>
+
+    <h3>Step 3 — Open Your Starter Kit Folder</h3>
+    <p>Your facilitator has placed a starter kit folder on the VM. Open it as your workspace:</p>
+    <ol>
+      <li>In Bob IDE, go to <strong>File → Open Folder</strong></li>
+      <li>Navigate to your starter kit folder — your facilitator will confirm the exact path on the VM</li>
+      <li>Click <strong>Select Folder</strong> (Windows) or <strong>Open</strong> (macOS)</li>
+    </ol>
+    <p>Once open, you will see the folder contents in the <strong>Explorer panel</strong> on the left. Bob will automatically read the <code>.bob/</code> folder inside it — your skills and rules are loaded.</p>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You're ready when:</strong> Bob IDE is open, your starter kit folder is visible in the Explorer panel on the left, and you can see the Bob chat icon in the sidebar.
+    </div>
+  </div>
+
+  <!-- Track chooser -->
+  <div class="section">
+    <h2><span class="step-num">▶</span> Choose Your Track for Exercise 2</h2>
+    <p>Exercise 1 and Exercises 3–4 are the same for everyone. For Exercise 2, pick your team's track:</p>
+
+    <div class="track-grid">
+      <a class="track-card" href="ex2a-bw.html">
+        <span class="track-icon">🔍</span>
+        <h3>BW / HANA Track</h3>
+        <p>Use Bob to discover and analyse SAP BW COPA metadata. Generate a full discovery report with a single phrase.</p>
+      </a>
+      <a class="track-card" href="ex2b-databricks.html">
+        <span class="track-icon">🏗️</span>
+        <h3>Databricks Track</h3>
+        <p>Use Bob to analyse Databricks Foundation artefacts, run a validation scorecard, and draft a stakeholder risk summary.</p>
+      </a>
+    </div>
+
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <strong>Not sure which track?</strong> Your facilitator will assign you to a team. If you finish early, you're welcome to try the other track.
+    </div>
+  </div>
+
+  <!-- Ready -->
+  <div class="bottom-nav">
+    <span class="muted">Folder open and Bob icon visible? Start here →</span>
+    <a class="btn btn-primary" href="ex1-basics.html">Start Exercise 1 →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+
+<script src="copy.js"></script>
+</body>
+</html>

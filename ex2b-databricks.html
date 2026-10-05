@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise 2B — Databricks Track | IBM Bob Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html" class="active">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html">Exercise 3</a></li>
+    <li><a href="ex4-wow.html">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge databricks">Databricks Track</span>
+    <h1>Interrogate the Migration Architecture</h1>
+    <p class="subtitle">Read the artefacts like an architect. Ask hard questions. Challenge the design. Bob as your technical peer reviewer.</p>
+    <div class="meta">
+      <span>⏱ 16 minutes</span>
+      <span>🏗️ Databricks / Architecture team</span>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <a class="step done" href="index.html">🏠 Start</a>
+    <a class="step done" href="ex1-basics.html">1 · Basics</a>
+    <span class="step active">2B · Databricks</span>
+    <a class="step" href="ex3-mcp.html">3 · MCP</a>
+    <a class="step" href="ex4-wow.html">⭐ Finale</a>
+  </div>
+
+  <!-- Context -->
+  <div class="section">
+    <h2><span class="step-num">📋</span> What You're Working With</h2>
+    <p>Your starter kit contains four artefacts from a real BW-to-Databricks migration design for Heineken's COPA Profitability Analytics platform. These are not mock data — they are a working Databricks Foundation design with real SQL, real business rules, and real complexity scores.</p>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Your artefacts:</strong>
+      <ul style="margin-top:0.4rem">
+        <li><code>D1</code> — Unity Catalog layout: Bronze / Silver / Gold schemas and table mapping</li>
+        <li><code>D3</code> — Silver layer SQL: transformations implementing 14 business rules, including <code>⚠️ BW-ONLY PATTERN</code> flags where SAP logic has no direct Databricks equivalent</li>
+        <li><code>D4</code> — Gold layer: central fact table DDL + semantic views for Power BI (52.6M rows, replaces HCPA_AD03)</li>
+        <li><code>D8</code> — Migration effort estimate: 38 objects scored LOW / MEDIUM / HIGH with day estimates and key risks</li>
+      </ul>
+    </div>
+    <p>In this exercise you will interrogate the architecture, identify design decisions worth challenging, validate the foundation quality, and produce outputs that feed directly into the Finale.</p>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section">
+    <h2><span class="step-num">1</span> Find the Risky Design Decisions</h2>
+    <p>The Silver layer SQL contains several places where BW-proprietary patterns had to be redesigned. Ask Bob to surface them and explain the risk each one carries:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>@/Databricks - Foundation/D3 - Silver Layer DDL and Transformation SQL.md
+This file contains markers for BW-ONLY PATTERN — places where SAP BW logic has no direct Databricks equivalent and had to be redesigned.
+
+List every BW-ONLY PATTERN you find. For each one:
+1. What BW pattern is being replaced
+2. What the Databricks replacement is
+3. What could go wrong if the replacement is not validated correctly
+4. Your assessment: is this replacement adequate, or does it need more design work?</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — a structured list of BW-specific patterns (ODP delta queues, HANA Calc Views, intra-ADSO reads) with Bob's assessment of each replacement's adequacy. Look for patterns where Bob flags residual risk.
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>As an architect</strong>, this is the kind of review that typically takes a day of reading SQL files. Bob just did it in 60 seconds. Now you can spend your time on the judgement calls, not the reading.
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section">
+    <h2><span class="step-num">2</span> Challenge the Effort Estimate</h2>
+    <p>D8 contains 38 stories with complexity scores and day estimates. As a PO or architect, your job is to challenge the assumptions. Ask Bob to stress-test the estimate:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>@/Databricks - Foundation/D8 - Migration Effort Estimate.md
+I want to challenge this effort estimate. Answer the following:
+
+1. Which HIGH complexity objects have the most dependencies on other objects completing first? Identify the critical path — if these slip, what else slips with them?
+2. Which estimates look undercooked — where the complexity is HIGH but the day estimate seems low relative to the risk described?
+3. If we had to cut scope to deliver in 3 sprints (30 working days) instead of the full estimate, which objects would you defer and why?
+
+Be direct. Flag genuine concerns, not just observations.</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob identifying the critical path (Bronze ingestion → Silver T1 FX/DQ → Gold fact → parallel run), flagging any estimates that look thin, and proposing a credible MVP scope for 3 sprints.
+    </div>
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>VM performance note.</strong> This prompt crosses two sections of D8. On the VM it may take <strong>30–60 seconds</strong> to respond. Watch for output appearing progressively.
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="section">
+    <h2><span class="step-num">3</span> Run the Quality Gate</h2>
+    <p>Before any migration proceeds, the Foundation artefacts should pass a formal quality check. Run the validation skill — it performs 8 automated checks and produces a RAG scorecard.</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>run quick validation</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>VM performance note.</strong> The validation skill reads multiple artefact files and runs 8 checks. On the VM this may take <strong>60–90 seconds</strong>. Do not re-run while it is working.
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — a RAG scorecard table (8 checks, pass/fail, overall GREEN / AMBER / RED) and a file saved as <code>D9 - Foundation Validation Report.md</code>.
+    </div>
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>Skill didn't fire?</strong> Try: <code>Validate my migration artifacts — use Quick Mode</code>
+    </div>
+
+    <p style="margin-top:1rem">Once the scorecard appears, ask Bob one follow-up question about it:</p>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>Based on the validation scorecard, which finding would you prioritise fixing before the first sprint begins, and what is the one-line action needed to fix it?</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob picking the most material finding from the scorecard and giving a concrete, actionable fix. This is Bob as Quality Gatekeeper — reasoning over the output it just generated.
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="section">
+    <h2><span class="step-num">4</span> Produce a Stakeholder-Ready Summary</h2>
+    <p>Bring together the architecture review, the effort challenge, and the validation findings into one crisp output a Finance Controller or Programme Director can read:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>@/Databricks - Foundation/D3 - Silver Layer DDL and Transformation SQL.md
+@/Databricks - Foundation/D8 - Migration Effort Estimate.md
+Based on the architecture review, effort estimate analysis, and validation scorecard from this session, write a 5-bullet executive summary for a Finance Controller who will sponsor this migration.
+
+Each bullet must be one sentence. Cover:
+1. What we are building and what it replaces
+2. The single highest technical risk and how it is being managed
+3. The overall effort and timeline in plain business language (no story points, no SQL)
+4. The one decision still open that requires Finance sign-off before Sprint 1 begins
+5. The recommended next step
+
+No jargon. No acronyms without explanation.</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — five crisp, business-language sentences that synthesise everything from this session into a sponsor-ready update.
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>This is the multiplier.</strong> Bob read the SQL, reviewed the effort estimate, ran a quality check, and now drafted the sponsor communication — all from the same four files, in the same session. Each of those tasks is something you would normally hand to a different person.
+    </div>
+  </div>
+
+  <!-- Stretch -->
+  <details class="optional">
+    <summary>⭐ Stretch Task — Interrogate the Gold Layer Design (if you finish early)</summary>
+    <div class="optional-body">
+      <p>The Gold layer (D4) defines the central fact table that Power BI connects to. It implements BR-13 (Variance) and BR-14 (EBITDA) as SQL expressions. As an architect, ask Bob to stress-test the semantic design:</p>
+      <p class="prompt-label">Type this in the Bob chat:</p>
+      <div class="prompt-box">
+        <pre>@/Databricks - Foundation/D4 - Gold Layer DDL and Views.md
+Review the Gold layer design and answer:
+1. The design implements EBITDA as: gross_margin minus cost_amt. What assumption does this make, and what could cause it to diverge from the Finance team's official EBITDA definition?
+2. The copa_query_layer_vw has a 12-second SLA. What risks does a DirectQuery Power BI connection to a 52.6M row table carry, and what would you recommend to mitigate them?
+3. Is there anything in this design that a Finance Controller should formally sign off on before go-live?</pre>
+        <button class="copy-btn">Copy</button>
+      </div>
+    </div>
+  </details>
+
+  <!-- Pre-condition for Wow -->
+  <div class="section">
+    <h2><span class="step-num">✅</span> Before You Move On</h2>
+    <p>The Finale uses your outputs from this session. Confirm before continuing:</p>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <ul style="margin-top:0.4rem">
+        <li>[ ] RAG scorecard was generated (Step 3 completed)</li>
+        <li>[ ] 5-bullet executive summary is visible in your chat (Step 4 completed)</li>
+      </ul>
+      <p style="margin-top:0.5rem"><strong>Scorecard missing?</strong> Copy <code>_backup/D9 - Foundation Validation Report.md</code> to <code>Databricks - Foundation/</code> and continue.</p>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="btn btn-ghost" href="ex1-basics.html">← Exercise 1</a>
+    <a class="btn btn-primary" href="ex3-mcp.html">Exercise 3 — MCP →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+<script src="copy.js"></script>
+</body>
+</html>

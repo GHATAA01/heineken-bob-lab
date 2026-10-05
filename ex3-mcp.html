@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise 3 — MCP Connection | IBM Bob Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html" class="active">Exercise 3</a></li>
+    <li><a href="ex4-wow.html">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge both">Exercise 3 — Both Tracks</span>
+    <h1>Connect Bob to a Live System</h1>
+    <p class="subtitle">Add one JSON block. Bob calls a real external API. No enterprise approval needed.</p>
+    <div class="meta">
+      <span>⏱ 10 minutes</span>
+      <span>👥 Everyone</span>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <a class="step done" href="index.html">🏠 Start</a>
+    <a class="step done" href="ex1-basics.html">1 · Basics</a>
+    <a class="step done" href="ex2a-bw.html">2A · BW</a>
+    <a class="step done" href="ex2b-databricks.html">2B · Databricks</a>
+    <span class="step active">3 · MCP</span>
+    <a class="step" href="ex4-wow.html">⭐ Finale</a>
+  </div>
+
+  <!-- What is MCP -->
+  <div class="section">
+    <h2><span class="step-num">?</span> What is an MCP?</h2>
+    <p>An <strong>MCP (Model Context Protocol)</strong> server is a small bridge that lets Bob call external systems — databases, APIs, ticketing tools, cloud platforms — directly from a conversation.</p>
+    <p>Instead of copy-pasting data from a system into Bob, Bob fetches it live. The connection is configured once in a JSON file. After that, it just works.</p>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>In production</strong>, this is how Bob connects to Databricks, JIRA, and Azure DevOps. Today we'll use a free public API so you can experience the same thing with zero setup.
+    </div>
+  </div>
+
+  <!-- Step 1: Edit mcp.json -->
+  <div class="section">
+    <h2><span class="step-num">1</span> Check Your MCP Config</h2>
+    <p>Your starter kit already has a <code>.bob/mcp.json</code> file with the <strong>Open-Meteo weather API</strong> pre-wired (Path B). Open it in VS Code to verify:</p>
+    <ol>
+      <li>In the VS Code file explorer (left panel), click the <strong>arrow next to <code>.bob/</code></strong> to expand it</li>
+      <li>Click <code>mcp.json</code> to open it</li>
+      <li>You should see a <code>"weather"</code> server entry with the Open-Meteo URL</li>
+    </ol>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>If you see the <code>"weather"</code> entry</strong> — you're ready. Skip to Step 2.
+    </div>
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>If the file is empty or missing</strong> — copy the block below into <code>.bob/mcp.json</code> and save:
+      <div class="code-block" style="margin-top:0.5rem">
+        <pre id="mcp-weather-json">{
+  "mcpServers": {
+    "weather": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "env": {
+        "FETCH_BASE_URL": "https://api.open-meteo.com"
+      },
+      "alwaysAllow": ["fetch"]
+    }
+  }
+}</pre>
+        <button class="copy-btn" data-target="mcp-weather-json">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pick your path -->
+  <div class="section">
+    <h2><span class="step-num">2</span> Choose Your Path</h2>
+    <p>Both paths teach the same thing. Pick the one that works for your setup:</p>
+
+    <div class="track-grid">
+      <div class="track-card" style="cursor:default;">
+        <span class="track-icon">🌤️</span>
+        <h3>Path B — Open-Meteo Weather</h3>
+        <p>No account. No internet restrictions. Works on any network. <strong>Recommended for everyone.</strong></p>
+      </div>
+      <div class="track-card" style="cursor:default;">
+        <span class="track-icon">🐙</span>
+        <h3>Path A — GitHub Public API</h3>
+        <p>Needs internet access to GitHub. No account required for public endpoints. Good if you have GitHub access.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATH B -->
+  <div class="section">
+    <h2><span class="step-num">2B</span> Path B — Weather API <span class="tag both" style="margin-left:0.4rem;">Recommended</span></h2>
+
+    <h3>Prompt 1 — Fetch live weather</h3>
+    <p>Open a new Bob chat and type:</p>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>Use the weather MCP to fetch the current weather in Amsterdam. The endpoint is: /v1/forecast?latitude=52.37&longitude=4.90&current_weather=true
+What is the current temperature and weather condition?</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob calls the API and returns the current temperature in Amsterdam (Heineken HQ) and a weather condition code. Watch the MCP tool badge light up in the Bob panel.
+    </div>
+
+    <h3 style="margin-top:1.25rem">Prompt 2 — Use live data in professional writing</h3>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>The current weather at Heineken's Amsterdam office is [temperature from above]. I'm writing a short project status update for stakeholders in Amsterdam. Add a friendly one-line weather greeting at the top of this message:
+
+"The COPA migration is on track. We completed the BW Discovery phase this week and have identified 38 migration stories for the upcoming sprint."</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob adds a personalised weather greeting (e.g. "Hope you're keeping warm in Amsterdam today at 8°C!") to your professional update.
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      This is a simple example — but the principle is the same as Bob fetching live data from Databricks, JIRA, or SAP. Real-time context, no copy-pasting.
+    </div>
+  </div>
+
+  <!-- PATH A -->
+  <div class="section">
+    <h2><span class="step-num">2A</span> Path A — GitHub API <span class="tag bw" style="margin-left:0.4rem;">Optional</span></h2>
+
+    <h3>Update your MCP config for GitHub</h3>
+    <p>Add this server entry to your <code>.bob/mcp.json</code> (inside the <code>mcpServers</code> block, alongside the weather entry):</p>
+    <div class="code-block">
+      <pre id="mcp-github-json">    "github": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-fetch"],
+      "env": {
+        "FETCH_BASE_URL": "https://api.github.com"
+      },
+      "alwaysAllow": ["fetch"]
+    }</pre>
+      <button class="copy-btn" data-target="mcp-github-json">Copy</button>
+    </div>
+    <p>Save the file. Bob will detect the new server automatically.</p>
+
+    <h3 style="margin-top:1.25rem">Prompt 1 — Fetch latest Delta Lake release</h3>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>Use the github MCP to fetch the latest release of the delta-io/delta repository. The endpoint is: /repos/delta-io/delta/releases/latest
+What is the latest version number?</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — the latest Delta Lake version number fetched live from GitHub (e.g. "Delta Lake 3.3.0").
+    </div>
+
+    <h3 style="margin-top:1.25rem">Prompt 2 — Combine with your migration context</h3>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>I am migrating from SAP BW to Databricks. The latest Delta Lake version is [version from above]. What are the top 3 new features in this version that are most relevant to a BW migration project? Keep each point to one sentence.</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — three concise, migration-relevant feature highlights combining the live version data with Bob's knowledge of Delta Lake and BW migration patterns.
+    </div>
+
+    <!-- GitHub account optional section -->
+    <details class="optional" style="margin-top:1rem">
+      <summary>🐙 Don't have a GitHub account? Create one free in 2 minutes</summary>
+      <div class="optional-body">
+        <p><strong>You don't need this today</strong> — the public API works without an account. But a free GitHub account is worth having.</p>
+        <ol>
+          <li>Go to <a href="https://github.com/signup" target="_blank">github.com/signup</a></li>
+          <li>Enter any personal email — the free tier is all you need</li>
+          <li>Choose a username and verify your email</li>
+          <li>Done — the GitHub API works immediately</li>
+        </ol>
+        <div class="callout tip" style="margin-top:0.75rem">
+          <span class="callout-icon">💡</span>
+          <strong>Why it's useful:</strong> You can store your Bob workspace rules and skills in a GitHub repo and share them with your whole team. One repo = one consistent Bob setup for everyone.
+        </div>
+        <p class="muted" style="margin-top:0.5rem">⚠️ This is completely optional. Use Path B (Weather) if you prefer.</p>
+      </div>
+    </details>
+  </div>
+
+  <!-- Convergence -->
+  <div class="section">
+    <h2><span class="step-num">💡</span> What Both Paths Prove</h2>
+    <p>Whether you fetched weather data or a GitHub release — you just connected Bob to a live external system with <strong>one JSON block and no enterprise approval</strong>.</p>
+    <p>In a real project, the same pattern connects Bob to:</p>
+    <ul>
+      <li>Databricks — query Unity Catalog, monitor pipeline runs</li>
+      <li>JIRA — read and create tickets from a conversation</li>
+      <li>Azure DevOps — link stories to pull requests</li>
+      <li>SAP BW — fetch metadata without extracting files</li>
+    </ul>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      This is <strong>Archetype 3: Bob as Orchestrator</strong> — from the Day 1 slides. Bob doesn't just work with local files. It can reach across your entire data landscape.
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="btn btn-ghost" href="ex2a-bw.html">← Exercise 2 (BW)</a>
+    <a class="btn btn-primary" href="ex4-wow.html">⭐ Wow Moment →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+<script src="copy.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Your Own Skill — Advanced | IBM Bob Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html">Exercise 3</a></li>
+    <li><a href="ex4-wow.html">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge advanced">⭐ Advanced — Optional</span>
+    <h1>Build Your Own Bob Skill</h1>
+    <p class="subtitle">4 steps. One file. Teach Bob something new — permanently.</p>
+    <div class="meta">
+      <span>⏱ +10 minutes</span>
+      <span>👥 For those who want to go further</span>
+    </div>
+  </header>
+
+  <!-- How skills work -->
+  <div class="section">
+    <h2><span class="step-num">?</span> How Skills Work</h2>
+    <p>A Bob skill is just a Markdown file in a specific folder. That's it.</p>
+    <ul>
+      <li>Create a folder inside <code>.bob/skills/</code> with any name</li>
+      <li>Add a <code>SKILL.md</code> file with a trigger phrase and instructions</li>
+      <li>Bob reads every skill file on every prompt — it activates automatically when you use the trigger phrase</li>
+    </ul>
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <strong>This is exactly how the <code>discover-bw</code> skill works.</strong> Someone wrote a SKILL.md file. You typed "Discover BW". Bob read the file and ran the workflow. There is no code, no plugin, no deployment.
+    </div>
+  </div>
+
+  <!-- Step 1 -->
+  <div class="section">
+    <h2><span class="step-num">1</span> Create the Skill Folder</h2>
+    <p>In VS Code, open the Explorer panel and create the following folder inside <code>.bob/skills/</code>:</p>
+    <div class="code-block">
+      <pre>.bob/skills/my-glossary/</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>How to create a folder in VS Code:</strong> Right-click on <code>.bob/skills/</code> in the Explorer → <em>New Folder</em> → type <code>my-glossary</code> → Enter.
+    </div>
+  </div>
+
+  <!-- Step 2 -->
+  <div class="section">
+    <h2><span class="step-num">2</span> Create the SKILL.md File</h2>
+    <p>Inside <code>.bob/skills/my-glossary/</code>, create a new file called <code>SKILL.md</code>.</p>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      Right-click on the <code>my-glossary/</code> folder → <em>New File</em> → type <code>SKILL.md</code> → Enter.
+    </div>
+  </div>
+
+  <!-- Step 3 -->
+  <div class="section">
+    <h2><span class="step-num">3</span> Paste the Template and Fill In Your Glossary</h2>
+    <p>Copy the template below into your new <code>SKILL.md</code> file. Then fill in the <strong>Definition</strong> column — write the definitions in your own words.</p>
+
+    <div class="code-block">
+      <pre id="skill-template">---
+name: my-glossary
+description: >
+  Lookup data terms. Triggers when the user types "lookup [term]".
+  Returns a plain-English definition from the glossary below.
+---
+
+# My Data Glossary Skill
+
+## Trigger
+This skill fires when the user types: **lookup [term]**
+
+## Behaviour
+When triggered, search the glossary below for the term and return:
+1. A one-sentence plain-English definition
+2. One real-world example of where you encounter this in a data project
+
+If the term is not in the glossary, say:
+"I don't have [term] in the glossary yet.
+Here is what I know from general knowledge: ..."
+
+## Glossary
+
+| Term          | Definition (fill in yours)   |
+|---------------|------------------------------|
+| COPA          |                              |
+| InfoProvider  |                              |
+| DSO           |                              |
+| DTP           |                              |
+| Transfer Rule |                              |
+</pre>
+      <button class="copy-btn" data-target="skill-template">Copy</button>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>Fill in at least 2 definitions</strong> before the next step — otherwise the skill won't have anything interesting to return.
+    </div>
+  </div>
+
+  <!-- Step 4 -->
+  <div class="section">
+    <h2><span class="step-num">4</span> Test Your Skill</h2>
+    <p>Save the file. Then open a new Bob chat and type:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>lookup COPA</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob returns your definition of COPA, plus a real-world example. Bob read your SKILL.md file and used your glossary.
+    </div>
+
+    <p style="margin-top:1rem">Try a term that's not in your glossary:</p>
+    <div class="prompt-box">
+      <pre>lookup InfoCube</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob says it's not in your glossary but gives you what it knows from general knowledge — exactly as instructed in your SKILL.md.
+    </div>
+  </div>
+
+  <!-- The insight -->
+  <div class="section">
+    <h2><span class="step-num">💡</span> What This Means for Your Team</h2>
+    <p>You just taught Bob a new behaviour in under 10 minutes, with no code, no deployment, and no configuration beyond a text file.</p>
+    <p>The same pattern scales to:</p>
+    <ul>
+      <li>A project onboarding skill — <em>"onboard me"</em> → Bob explains the project structure and key contacts</li>
+      <li>A code review skill — <em>"review this transformation"</em> → Bob checks against your team's SQL standards</li>
+      <li>A data quality skill — <em>"check data quality"</em> → Bob runs your team's standard DQ checks on any table description</li>
+    </ul>
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <strong>Skills are shareable.</strong> Put your <code>.bob/skills/</code> folder in a shared git repo. Every team member gets the same Bob capabilities — automatically, on every prompt.
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="btn btn-ghost" href="ex4-wow.html">← Back to Finale</a>
+    <a class="btn btn-primary" href="index.html">🏠 Back to Start</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+<script src="copy.js"></script>
+</body>
+</html>

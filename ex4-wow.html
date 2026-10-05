@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wow Moment — Finale | IBM Bob Lab</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .countdown {
+      text-align: center;
+      font-size: 3.5rem;
+      font-weight: 700;
+      color: #00843d;
+      margin: 1rem 0;
+      letter-spacing: 0.04em;
+    }
+    .wow-prompt-box {
+      background: #161616;
+      border: 2px solid #00843d;
+      border-radius: 6px;
+      padding: 1.25rem 1.25rem;
+      margin: 0.75rem 0 0.5rem;
+      position: relative;
+    }
+    .wow-prompt-box pre {
+      font-family: 'IBM Plex Mono', 'Consolas', monospace;
+      font-size: 0.9rem;
+      color: #f4f4f4;
+      white-space: pre-wrap;
+      word-break: break-word;
+      line-height: 1.6;
+      margin: 0;
+      padding-right: 3.5rem;
+    }
+    .wow-prompt-box .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background: #00843d;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      padding: 0.35rem 0.8rem;
+      font-size: 0.8rem;
+      font-family: 'IBM Plex Sans', sans-serif;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .wow-prompt-box .copy-btn:hover  { background: #005a29; }
+    .wow-prompt-box .copy-btn.copied { background: #0f62fe; }
+    .role-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .role-card {
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+      padding: 0.9rem;
+      text-align: center;
+      background: #fff;
+    }
+    .role-card .role-icon { font-size: 1.6rem; display: block; margin-bottom: 0.35rem; }
+    .role-card .role-name { font-size: 0.8rem; font-weight: 600; }
+    .reflection-card {
+      background: #f6f2ff;
+      border: 1px solid #8a3ffc;
+      border-radius: 4px;
+      padding: 1.25rem 1.5rem;
+      margin: 1rem 0;
+    }
+    .reflection-card h3 { margin-bottom: 0.75rem; color: #491d8b; }
+    .reflection-card ol { padding-left: 1.4rem; }
+    .reflection-card li { margin-bottom: 0.6rem; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html">Exercise 3</a></li>
+    <li><a href="ex4-wow.html" class="active">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge both">Finale — Both Tracks</span>
+    <h1>Putting It Together</h1>
+    <p class="subtitle">One prompt that synthesises everything you generated today into a sprint-ready output.</p>
+    <div class="meta">
+      <span>⏱ 5 minutes</span>
+      <span>👥 Everyone together</span>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <a class="step done" href="index.html">🏠 Start</a>
+    <a class="step done" href="ex1-basics.html">1 · Basics</a>
+    <a class="step done" href="ex2a-bw.html">2A · BW</a>
+    <a class="step done" href="ex2b-databricks.html">2B · Databricks</a>
+    <a class="step done" href="ex3-mcp.html">3 · MCP</a>
+    <span class="step active">⭐ Finale</span>
+  </div>
+
+  <!-- Pre-condition check -->
+  <div class="section">
+    <h2><span class="step-num">✅</span> Before You Type — Quick Check</h2>
+    <p>This prompt uses the artefacts <strong>you generated today</strong>. Confirm they exist before continuing:</p>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>BW Team — confirm:</strong>
+      <ul style="margin-top:0.4rem">
+        <li>[ ] <code>BW Discovery Outcome/04 - Business Rules Summary.md</code> exists in your workspace</li>
+        <li>[ ] <code>BW Discovery Outcome/03 - Migration Complexity and Risk Register.md</code> exists</li>
+      </ul>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>Databricks Team — confirm:</strong>
+      <ul style="margin-top:0.4rem">
+        <li>[ ] <code>Databricks - Foundation/D8 - Migration Effort Estimate.md</code> exists</li>
+        <li>[ ] Your RAG scorecard was generated (D9 file or on-screen output)</li>
+      </ul>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>Files missing?</strong> Copy the contents of your <code>_backup/</code> folder into the right location and continue. Ask your facilitator if you're not sure.
+    </div>
+  </div>
+
+  <!-- Final prompt -->
+  <div class="section">
+    <h2><span class="step-num">▶</span> The Final Prompt</h2>
+    <p>Open a new Bob chat. Copy and run the prompt below. It works across both team tracks — Bob will use whichever artefacts are present in your workspace.</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="wow-prompt-box">
+      <pre id="wow-final-prompt">Based on the BW discovery artefacts and the Foundation effort estimate we generated today, create a Sprint 1 story list for a two-week sprint.
+
+Rules:
+- Maximum 5 stories
+- Each story must have: Story title, Team owner (BW or Databricks), Priority (High / Medium / Low), Estimated days
+- Prioritise stories that unblock the most downstream work
+- Format the output as a Markdown table
+
+If both BW Discovery Outcome and Databricks Foundation artefacts are present, include at least one story from each team.</pre>
+      <button class="copy-btn" data-target="wow-final-prompt">Copy</button>
+    </div>
+  </div>
+
+  <!-- Reflect -->
+  <div class="section">
+    <h2><span class="step-num">💡</span> Consider What Just Happened</h2>
+    <p>Bob synthesised <strong>your artefacts</strong> — the discovery report, the complexity register, the effort estimate — into a prioritised sprint plan. Everything it used, you generated in the last 30 minutes.</p>
+
+    <div class="callout tip">
+      <span class="callout-icon">⏱</span>
+      <strong>Time to produce this manually:</strong> reading the discovery report, cross-referencing the effort estimate, mapping dependencies, and formatting for a planning session typically takes a senior BA the better part of a day. The output above is a first draft in under a minute — one that your team can review, challenge, and refine rather than starting from a blank page.
+    </div>
+
+    <p>The five roles Bob played across today's exercises:</p>
+
+    <div class="role-grid">
+      <div class="role-card">
+        <span class="role-icon">🔍</span>
+        <div class="role-name">BW Reverse Engineer</div>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">✅</span>
+        <div class="role-name">Quality Gatekeeper</div>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">🏗️</span>
+        <div class="role-name">Databricks Architect</div>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">🎫</span>
+        <div class="role-name">Scrum Master</div>
+      </div>
+      <div class="role-card">
+        <span class="role-icon">⚡</span>
+        <div class="role-name">Orchestrator</div>
+      </div>
+    </div>
+
+    <p class="muted" style="margin-top:0.5rem">BW team: roles 1, 4, 5. Databricks team: roles 2, 3, 4, 5. Between both teams, all five roles were covered.</p>
+  </div>
+
+  <!-- Reflection card -->
+  <div class="reflection-card">
+    <h3>Discussion</h3>
+    <p>Take a few minutes individually, then share with the group:</p>
+    <ol>
+      <li><strong>Where in your current programme</strong> would a first-draft like this have the most impact — and what would you need to trust it?</li>
+      <li><strong>Which of the five roles</strong> is most relevant to your team's immediate priorities?</li>
+      <li><strong>What one integration</strong> — live system, data platform, or tool — would make Bob most valuable in your context?</li>
+    </ol>
+  </div>
+
+  <!-- What's next -->
+  <div class="section">
+    <h2><span class="step-num">→</span> What's Next</h2>
+    <p>Today you used Bob as an Analyst and Orchestrator on sample data. In a real engagement, the same workflow connects to your live SAP BW system, your Databricks workspace, and your JIRA board.</p>
+    <ul>
+      <li>📦 Take your starter kit home — it's a real Bob workspace you can keep using</li>
+      <li>🔧 The skills and rules in <code>.bob/</code> are just text files — edit them to fit your project</li>
+      <li>🤝 Share your workspace with teammates — check <code>.bob/</code> into a shared git repo</li>
+    </ul>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Want to go further?</strong> Try the optional <a href="stretch-skill.html">Skill Creation exercise</a> — you'll build your own Bob skill in under 10 minutes.
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="btn btn-ghost" href="ex3-mcp.html">← Exercise 3</a>
+    <a class="btn btn-primary" href="stretch-skill.html">⭐ Optional: Build a Skill →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+<script src="copy.js"></script>
+</body>
+</html>

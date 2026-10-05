@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise 2A — BW Track | IBM Bob Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html" class="active">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html">Exercise 3</a></li>
+    <li><a href="ex4-wow.html">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge">BW / HANA Track</span>
+    <h1>Interrogate the BW Landscape</h1>
+    <p class="subtitle">Run the discovery. Then push deeper — delta mechanics, ABAP logic, lineage gaps, migration risks. Bob as your technical peer reviewer.</p>
+    <div class="meta">
+      <span>⏱ 16 minutes</span>
+      <span>🔍 BW / HANA architects</span>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <a class="step done" href="index.html">🏠 Start</a>
+    <a class="step done" href="ex1-basics.html">1 · Basics</a>
+    <span class="step active">2A · BW</span>
+    <a class="step" href="ex3-mcp.html">3 · MCP</a>
+    <a class="step" href="ex4-wow.html">⭐ Finale</a>
+  </div>
+
+  <!-- Context -->
+  <div class="section">
+    <h2><span class="step-num">📋</span> What You're Working With</h2>
+    <p>Your starter kit contains the real Heineken COPA BW metadata — JSON-structured, with full ABAP routine code, field-level E2E lineage, delta mechanism details, and DQ routing logic. Bob will read this and generate five discovery artefacts. Your job is not to accept the output passively — it is to interrogate it like a senior architect would in a migration review.</p>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>The metadata contains:</strong> 4 DataSources (ODP, Standard Delta AIE, Flat File), 4 Transformations with real ABAP routine code (FX conversion, WKG unpivot, GL recon, variance/EBITDA), 5 ADSOs, 1 CompositeProvider, 1 BEx query — and a dual-path convergence pattern where three separate streams land in the same ADSO (HCPA_AD01).
+    </div>
+  </div>
+
+  <!-- Step 1: Trigger -->
+  <div class="section">
+    <h2><span class="step-num">1</span> Run the Discovery</h2>
+    <p>Trigger the <code>discover-bw</code> skill. Bob will generate five structured artefacts. While it runs, note which objects appear first — the order reflects dependencies.</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>Discover BW</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>VM performance note.</strong> Five files are generated in sequence. On the VM this takes <strong>2–3 minutes</strong>. Output appears progressively — do not press Stop unless nothing has appeared after 3 minutes.
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> five files in <code>BW Discovery Outcome/</code>: AS-IS Architecture Diagram, Object Inventory, Migration Complexity Register, Business Rules Summary, and Master Discovery Report.
+    </div>
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>Skill didn't fire?</strong> Use this fallback:
+      <div class="prompt-box" style="margin-top:0.5rem">
+        <pre id="fallback-discover">@/BW Metadata/BW Metadata.txt
+Analyse this BW metadata file and generate the five BW discovery artefacts: AS-IS architecture diagram, object inventory, migration complexity register, business rules summary, and a master discovery report. Save each to the BW Discovery Outcome/ folder.</pre>
+        <button class="copy-btn" data-target="fallback-discover">Copy</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Delta mechanisms -->
+  <div class="section">
+    <h2><span class="step-num">2</span> Challenge the Delta Strategy</h2>
+    <p>The metadata contains three different delta mechanisms across four DataSources. In a BW-to-Databricks migration, each one requires a different replacement strategy — and two of them are BW-proprietary with no direct Databricks equivalent. Ask Bob to surface the problem:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre id="delta-prompt">@/BW Metadata/BW Metadata.txt
+This metadata has three distinct delta mechanisms: ODP_DELTA (used by ZDS_COPA_CDS_ACTUALS and ZDS_COPA_COSTCENTER), Standard Delta AIE (used by 0FI_GL_14), and no delta at all (ZEXT_NIELSEN flat file).
+
+For each mechanism:
+1. Explain exactly how delta works in BW — what tracks changes, what gets extracted on each run
+2. Why does this mechanism not exist in Databricks, and what must replace it?
+3. What is the specific technical risk of the replacement — what could silently go wrong that would only be discovered at period-end close?
+
+Be specific. Use the field names and technical object names from the metadata.</pre>
+      <button class="copy-btn" data-target="delta-prompt">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob distinguishing ODP subscription queues from Standard Delta change pointers, explaining why both are BW-proprietary, and naming concrete failure modes (e.g. back-dated GL postings lost on a BUDAT watermark, ODP queue orphan records if the subscriber is deregistered mid-migration).
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>As a BW architect</strong>, this is the delta mechanism review you would normally do over a day with the BW BASIS team. Bob just did it in 60 seconds from the metadata. Your job now is to verify whether its answer is correct — and correct it where it is not.
+    </div>
+  </div>
+
+  <!-- Step 3: ABAP routine interrogation -->
+  <div class="section">
+    <h2><span class="step-num">3</span> Interrogate the ABAP Routine</h2>
+    <p>The metadata contains the full ABAP code for <code>COMPUTE_GROSS_MARGIN_AND_DQ</code> in transformation T1. This routine does three things: FX conversion, gross margin computation, and DQ flag routing. Ask Bob to analyse it as a migration engineer would:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre id="abap-prompt">@/BW Metadata/BW Metadata.txt
+The transformation T1 contains an ABAP routine called COMPUTE_GROSS_MARGIN_AND_DQ. Read the routine code in the metadata and answer:
+
+1. The FX conversion uses CONVERT_TO_LOCAL_CURRENCY with sy-datum as the date. What is the problem with using sy-datum in a batch delta load, and what should the Databricks replacement use instead?
+2. The DQ routine routes records with ZDQ_FLAG = '2' (REJECT) to a monitor table and to HCPA_ERR01. In Databricks, there is no BW monitor table. What is the equivalent pattern and what must the Finance Operations team be told about how to access rejected records after migration?
+3. There is a fallback in the FX routine: if no rate is found, it uses the local currency amount as the group currency amount. Is this acceptable for financial reporting? What is the risk?
+
+Be direct. These are architectural decisions that need a clear recommendation.</pre>
+      <button class="copy-btn" data-target="abap-prompt">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob flagging <code>sy-datum</code> as the run date (not the posting date), recommending the Databricks replacement use <code>BUDAT</code> / posting date for rate lookup; explaining the Delta Lake error table pattern as the HCPA_ERR01 equivalent; and flagging the LC fallback as a financial reporting risk that needs Finance sign-off.
+    </div>
+  </div>
+
+  <!-- Step 4: Convergence risk and migration challenge -->
+  <div class="section">
+    <h2><span class="step-num">4</span> Challenge the Architecture</h2>
+    <p>Three separate transformation streams (T1 actuals, T2 cost center overhead, T3 GL recon) all converge into the same ADSO — <code>HCPA_AD01</code>. This multi-record-type convergence pattern is common in BW but creates a specific migration problem in Databricks. Ask Bob to reason through it:</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre id="convergence-prompt">@/BW Metadata/BW Metadata.txt
+The ADSO HCPA_AD01 receives records from three transformations: T1 (COPA actuals from ZDS_COPA_CDS_ACTUALS), T2 (cost center overhead from ZDS_COPA_COSTCENTER), and T3 (GL reconciliation records from 0FI_GL_14). Each stream loads different record types distinguished by ZREC_TYPE.
+
+This is a multi-record-type convergence pattern — three pipelines writing to one table.
+
+Answer:
+1. In BW, the ADSO handles this naturally because all three DTPs write to the same ADSO using the BW request mechanism. In Databricks, three independent pipelines write to the same Delta table. What concurrency and ordering problems does this create, and how should the pipeline orchestration be designed to prevent them?
+2. T3 contains a GL vs COPA reconciliation step that reads from HCPA_AD01 while also writing to it. In Databricks, a pipeline cannot read from and write to the same table in the same transaction. How must this step be redesigned?
+3. If we split HCPA_AD01 into three separate Silver tables (one per record type) instead of the single convergence model, what are the downstream impacts on T4 and the CompositeProvider equivalent?
+
+Give a recommendation for each, not just an analysis.</pre>
+      <button class="copy-btn" data-target="convergence-prompt">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob recommending sequential pipeline execution with dependency ordering (not parallel writes), a two-step T3 redesign separating the GL read from the COPA write, and an analysis of whether splitting HCPA_AD01 simplifies or complicates the T4 merge.
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>This is the key insight.</strong> Bob identified the intra-ADSO read anti-pattern and the convergence orchestration problem from raw metadata. That analysis typically comes out of a 2-day architecture review workshop. You now have a first-draft recommendation to challenge, refine, or push back on — in 16 minutes.
+    </div>
+  </div>
+
+  <!-- Stretch -->
+  <details class="optional">
+    <summary>⭐ Stretch Task — Trace the full E2E lineage of ZGROSS_MARGIN (if you finish early)</summary>
+    <div class="optional-body">
+      <p>The metadata contains step-by-step field lineage for every key figure. ZGROSS_MARGIN is computed in T1 and flows through to the CompositeProvider as a virtual KPI input. Ask Bob to trace it and identify the lineage gap:</p>
+      <p class="prompt-label">Type this in the Bob chat:</p>
+      <div class="prompt-box">
+        <pre id="lineage-prompt">@/BW Metadata/BW Metadata.txt
+Trace the complete end-to-end lineage of the field ZGROSS_MARGIN from its source in CE1COPA through every transformation, ADSO, and semantic layer object to the BEx query COPA100.
+
+For each step: object name, field name at that step, what happens to the field (direct pass-through, computed, renamed, aggregated).
+
+Then identify: is there any step in the lineage where the field definition or computation could change silently during migration? What is the migration team's validation obligation at that point?</pre>
+        <button class="copy-btn" data-target="lineage-prompt">Copy</button>
+      </div>
+    </div>
+  </details>
+
+  <!-- Pre-condition for Wow -->
+  <div class="section">
+    <h2><span class="step-num">✅</span> Before You Move On</h2>
+    <p>The Finale uses the artefacts generated in Step 1. Confirm they exist:</p>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <ul style="margin-top:0.4rem">
+        <li>[ ] <code>BW Discovery Outcome/03 - Migration Complexity and Risk Register.md</code> exists</li>
+        <li>[ ] <code>BW Discovery Outcome/04 - Business Rules Summary.md</code> exists</li>
+      </ul>
+      <p style="margin-top:0.5rem"><strong>Files missing?</strong> Copy the <code>_backup/BW Discovery Outcome/</code> folder to your workspace root and continue.</p>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="btn btn-ghost" href="ex1-basics.html">← Exercise 1</a>
+    <a class="btn btn-primary" href="ex3-mcp.html">Exercise 3 — MCP →</a>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+<script src="copy.js"></script>
+</body>
+</html>

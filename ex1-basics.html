@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exercise 1 — Bob Basics | IBM Bob Lab</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<nav class="top-nav">
+  <a class="lab-logo" href="index.html">🍺 Heineken × IBM Bob — Day 2 Lab</a>
+  <ul class="nav-links">
+    <li><a href="ex1-basics.html" class="active">Exercise 1</a></li>
+    <li><a href="ex2a-bw.html">Ex 2 · BW</a></li>
+    <li><a href="ex2b-databricks.html">Ex 2 · Databricks</a></li>
+    <li><a href="ex3-mcp.html">Exercise 3</a></li>
+    <li><a href="ex4-wow.html">Finale</a></li>
+  </ul>
+</nav>
+
+<div class="page-wrap">
+
+  <header class="page-header">
+    <span class="badge both">Exercise 1 — Both Tracks</span>
+    <h1>Bob Basics</h1>
+    <p class="subtitle">Three quick wins to get comfortable with Bob before your track exercise.</p>
+    <div class="meta">
+      <span>⏱ 10 minutes</span>
+      <span>👥 Everyone</span>
+    </div>
+  </header>
+
+  <div class="progress-bar">
+    <a class="step done"  href="index.html">🏠 Start</a>
+    <span class="step active">1 · Basics</span>
+    <a class="step" href="ex2a-bw.html">2A · BW</a>
+    <a class="step" href="ex2b-databricks.html">2B · Databricks</a>
+    <a class="step" href="ex3-mcp.html">3 · MCP</a>
+    <a class="step" href="ex4-wow.html">⭐ Finale</a>
+  </div>
+
+  <!-- Opening Bob — Bob IDE, pre-installed -->
+  <div class="section">
+    <h2><span class="step-num">🗺</span> Opening the Bob Chat</h2>
+    <p>You should have Bob IDE open with your starter kit folder loaded. Now open the chat panel:</p>
+    <ol>
+      <li>Look at the <strong>left sidebar</strong> in Bob IDE — find the <strong>Bob chat icon</strong> (small chat bubble). Click it.</li>
+      <li>The Bob chat panel opens. At the bottom you'll see the <strong>input box</strong> — this is where you type your prompts.</li>
+      <li>Click <strong>+ New Chat</strong> (or the pencil icon at the top of the panel) to start a fresh conversation.</li>
+      <li>Press <strong>Enter</strong> to send. Use <strong>Shift + Enter</strong> for a new line without sending.</li>
+    </ol>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Can't find the chat icon?</strong> Press <code>Ctrl + Shift + P</code>, type <code>Bob</code>, and select <em>Bob: Open Chat</em>.
+    </div>
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>VM tip.</strong> Bob's first response in a session may take 15–30 seconds while it initialises. Subsequent responses are faster. If nothing appears after 45 seconds, press <strong>Stop</strong> in the chat and try again.
+    </div>
+  </div>
+
+  <!-- Modes reference -->
+  <div class="section">
+    <h2><span class="step-num">🔀</span> Bob's Three Modes — Pick the Right One</h2>
+    <p>Bob has three modes. Knowing which to use saves you time and avoids confusion. You switch modes with the <code>/</code> command, or via the mode dropdown at the top of the Bob panel.</p>
+
+    <table style="width:100%;border-collapse:collapse;font-size:0.875rem;margin-top:0.75rem;">
+      <thead>
+        <tr style="background:#f4f4f4;">
+          <th style="text-align:left;padding:0.6rem 0.75rem;border-bottom:2px solid #00843d;width:14%;">Mode</th>
+          <th style="text-align:left;padding:0.6rem 0.75rem;border-bottom:2px solid #00843d;width:34%;">What it does</th>
+          <th style="text-align:left;padding:0.6rem 0.75rem;border-bottom:2px solid #00843d;width:32%;">Use it when…</th>
+          <th style="text-align:left;padding:0.6rem 0.75rem;border-bottom:2px solid #00843d;width:20%;">Today's exercise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;font-weight:700;">💬 Ask</td>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;">Answers questions. Reads your files. <strong>Never writes or edits anything.</strong></td>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;">You want an explanation, a summary, a comparison, or an analysis — with no risk of Bob changing any file.</td>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;color:#525252;">Tasks 1, 2 &amp; 3 below</td>
+        </tr>
+        <tr style="background:#fafafa;">
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;font-weight:700;">📋 Plan</td>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;">Thinks through a multi-step problem and produces a structured breakdown or proposal. <strong>Does not execute — it plans only.</strong></td>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;">You have a complex task (architecture design, sprint planning, migration strategy) and want Bob to reason through it before taking any action.</td>
+          <td style="padding:0.6rem 0.75rem;border-bottom:1px solid #e0e0e0;color:#525252;">Wow Moment finale</td>
+        </tr>
+        <tr>
+          <td style="padding:0.6rem 0.75rem;font-weight:700;">⚡ Agent</td>
+          <td style="padding:0.6rem 0.75rem;"><strong>Reads files, writes files, triggers skills, and calls MCP tools.</strong> Full action mode — Bob gets things done.</td>
+          <td style="padding:0.6rem 0.75rem;">You want Bob to generate artefacts, update a document, run a skill workflow, or connect to an external system. <strong>If in doubt, use Agent.</strong></td>
+          <td style="padding:0.6rem 0.75rem;color:#525252;">Exercises 2 &amp; 3</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Simple rule of thumb:</strong> Use <strong>Ask</strong> to understand something. Use <strong>Agent</strong> to get something done. Use <strong>Plan</strong> when the task is big and you want to review Bob's thinking before it acts.
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>How to switch modes:</strong> Type <code>/ask</code>, <code>/plan</code>, or <code>/agent</code> at the start of any message — or click the mode name shown at the top of the Bob panel to open the mode selector dropdown.
+    </div>
+  </div>
+
+  <!-- Task 1 -->
+  <div class="section">
+    <h2><span class="step-num">1</span> Ask Bob a Question</h2>
+    <p>Bob has deep knowledge of data, analytics, SAP BW, and Databricks — built in, no internet needed. Let's test it.</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>What is SAP BW COPA and why are companies migrating to Databricks?</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — a clear paragraph explaining COPA (CO-PA: Profitability Analysis) and the main migration drivers (cost, scalability, open formats).
+    </div>
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>This is Bob's built-in knowledge.</strong> No file, no internet — just ask. Bob works like a very well-read colleague.
+    </div>
+  </div>
+
+  <!-- Task 2 -->
+  <div class="section">
+    <h2><span class="step-num">2</span> Reference a File with @</h2>
+    <p>Bob can read any file in your workspace. Use the <code>@</code> symbol to point to it. Every starter kit contains <code>BW Metadata/BW Metadata.txt</code> — a real Heineken COPA metadata export. Try these three prompts in order. Each one shows a different way Bob can work with a file.</p>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>The @ autocomplete.</strong> As you type <code>@/</code>, Bob shows a dropdown of files in your workspace. Pick from the list — no need to type the full path.
+    </div>
+
+    <h3>Prompt A — Summarise</h3>
+    <p>Start simple: ask Bob to read the file and give you a structured summary.</p>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre id="task2a">@/BW Metadata/BW Metadata.txt
+Summarise the data sources in this file as a table. Include the object name and object type for each.</pre>
+      <button class="copy-btn" data-target="task2a">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — a Markdown table listing SAP BW objects (HANA views, DataSources, transformations, ADSOs) and their types.
+    </div>
+
+    <h3>Prompt B — Ask a specific question</h3>
+    <p>Now ask Bob something that requires it to reason over the file, not just read it.</p>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre id="task2b">@/BW Metadata/BW Metadata.txt
+How many transformation objects are in this metadata? For each one, what is the source and what is the target?</pre>
+      <button class="copy-btn" data-target="task2b">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — a count of transformations and a list showing each one's source object and target object. Bob extracted this by reading the file structure, not just scanning for keywords.
+    </div>
+
+    <h3>Prompt C — Ask for a judgement</h3>
+    <p>Now push further: ask Bob for an opinion based on what it read.</p>
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre id="task2c">@/BW Metadata/BW Metadata.txt
+Based on this metadata, which object looks most complex to migrate to Databricks and why? Give me one sentence.</pre>
+      <button class="copy-btn" data-target="task2c">Copy</button>
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — Bob naming a specific object (likely a transformation with custom ABAP logic or an ODP-delta DataSource) and giving a plain-English reason. This is Bob as an analyst, not just a reader.
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Notice the progression.</strong> Prompt A = extract. Prompt B = reason. Prompt C = judge. The same file, three different depths. This is how you work with Bob on any document in your project.
+    </div>
+    <div class="callout warning">
+      <span class="callout-icon">⚠️</span>
+      <strong>Watch out</strong> — file paths are case-sensitive. Copy prompts exactly as shown, or use the @ autocomplete dropdown.
+    </div>
+  </div>
+
+  <!-- Task 3 -->
+  <div class="section">
+    <h2><span class="step-num">3</span> Try the Mode Switch in Action</h2>
+    <p>Now let's use <strong>Ask mode</strong> explicitly with a <code>/ask</code> command. This guarantees Bob answers your question without touching any file — useful when you're exploring or learning.</p>
+
+    <p class="prompt-label">Type this in the Bob chat:</p>
+    <div class="prompt-box">
+      <pre>/ask What does Bronze, Silver, Gold mean in a Databricks Medallion architecture? Give me a one-line description of each layer.</pre>
+      <button class="copy-btn">Copy</button>
+    </div>
+
+    <div class="callout tip">
+      <span class="callout-icon">💡</span>
+      <strong>Try the / command palette.</strong> Type <code>/</code> alone in the input box (nothing else) and wait a moment — you'll see a dropdown listing all modes and commands. This is also where skills appear once they're loaded.
+    </div>
+    <div class="callout check">
+      <span class="callout-icon">✅</span>
+      <strong>You should see</strong> — three clear one-line descriptions: Bronze = raw ingestion, Silver = cleaned and validated, Gold = business-ready aggregated data.
+    </div>
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      <strong>Quick recap — which mode are you in for each exercise today?</strong>
+      <ul style="margin-top:0.4rem;">
+        <li>Tasks 1–3 here → <strong>Ask</strong> (reading and understanding only)</li>
+        <li>Exercise 2 (BW Discovery / Foundation analysis) → <strong>Agent</strong> (Bob generates artefacts)</li>
+        <li>Exercise 3 (MCP connection) → <strong>Agent</strong> (Bob calls a live API)</li>
+        <li>Wow Moment → <strong>Agent</strong> (Bob synthesises and generates the sprint table)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Quick debrief -->
+  <div class="section">
+    <h2><span class="step-num">💬</span> Quick Debrief (1 minute)</h2>
+    <p>Turn to the person next to you and answer one question:</p>
+    <p><strong>"What surprised you most about Bob in the last 10 minutes?"</strong></p>
+    <div class="callout info">
+      <span class="callout-icon">💡</span>
+      Common answers we hear: <em>"I didn't expect it to read my file so fast"</em> · <em>"It knows more about BW than I expected"</em> · <em>"I thought I needed to configure something first"</em>
+    </div>
+  </div>
+
+  <div class="bottom-nav">
+    <a class="btn btn-ghost" href="index.html">← Back to Start</a>
+    <div style="display:flex;gap:0.75rem;">
+      <a class="btn btn-ghost" href="ex2a-bw.html">BW Track →</a>
+      <a class="btn btn-primary" href="ex2b-databricks.html">Databricks Track →</a>
+    </div>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  Made with IBM Bob &nbsp;·&nbsp; Heineken Data &amp; Analytics Lab &nbsp;·&nbsp; Day 2
+</footer>
+<script src="copy.js"></script>
+</body>
+</html>

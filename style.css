@@ -1,0 +1,422 @@
+/* ============================================================
+   IBM Bob Day 2 Lab Kit — Shared Stylesheet
+   Heineken green: #00843d  |  IBM blue: #0f62fe
+   Font: IBM Plex Sans (Google Fonts) with system-sans fallback
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; scroll-behavior: smooth; }
+
+body {
+  font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+  background: #f4f4f4;
+  color: #161616;
+  line-height: 1.6;
+}
+
+/* ── Layout ───────────────────────────────────────────────── */
+.page-wrap {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+}
+
+/* ── Top Nav ──────────────────────────────────────────────── */
+.top-nav {
+  background: #00843d;
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.18);
+}
+
+.top-nav .lab-logo {
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.top-nav .nav-links {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  list-style: none;
+  margin-left: auto;
+}
+
+.top-nav .nav-links a {
+  color: rgba(255,255,255,0.88);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: color 0.15s;
+}
+
+.top-nav .nav-links a:hover,
+.top-nav .nav-links a.active { color: #fff; text-decoration: underline; }
+
+/* ── Page Header ──────────────────────────────────────────── */
+.page-header {
+  padding: 2.5rem 0 1.5rem;
+  border-bottom: 3px solid #00843d;
+  margin-bottom: 2rem;
+}
+
+.page-header .badge {
+  display: inline-block;
+  background: #00843d;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 2px;
+  margin-bottom: 0.75rem;
+}
+
+.page-header .badge.databricks { background: #ff3621; }
+.page-header .badge.both       { background: #0f62fe; }
+.page-header .badge.advanced   { background: #8a3ffc; }
+
+.page-header h1 {
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.page-header .subtitle {
+  color: #525252;
+  font-size: 1rem;
+}
+
+.page-header .meta {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: #525252;
+}
+
+.page-header .meta span::before { margin-right: 0.3rem; }
+
+/* ── Progress Bar ─────────────────────────────────────────── */
+.progress-bar {
+  display: flex;
+  gap: 0;
+  margin: 1.5rem 0 2rem;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+.progress-bar .step {
+  flex: 1;
+  padding: 0.5rem 0.4rem;
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  background: #fff;
+  color: #525252;
+  border-right: 1px solid #e0e0e0;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.progress-bar .step:last-child { border-right: none; }
+.progress-bar .step.active { background: #00843d; color: #fff; }
+.progress-bar .step.done   { background: #defbe6; color: #0e6027; }
+.progress-bar .step:hover:not(.active) { background: #f0f4f0; }
+
+/* ── Section ──────────────────────────────────────────────── */
+.section {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1.75rem 1.75rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.section h2 {
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.section h2 .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 50%;
+  background: #00843d;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.section h3 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 1.25rem 0 0.5rem;
+}
+
+.section p  { margin-bottom: 0.75rem; color: #393939; }
+.section ul, .section ol { padding-left: 1.4rem; margin-bottom: 0.75rem; color: #393939; }
+.section li { margin-bottom: 0.3rem; }
+
+/* ── Prompt Box ───────────────────────────────────────────── */
+.prompt-box {
+  background: #161616;
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  margin: 0.75rem 0 0.5rem;
+  position: relative;
+}
+
+.prompt-box pre {
+  font-family: 'IBM Plex Mono', 'Consolas', monospace;
+  font-size: 0.875rem;
+  color: #f4f4f4;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1.5;
+  margin: 0;
+  padding-right: 3.5rem;
+}
+
+.prompt-box .copy-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: #393939;
+  color: #f4f4f4;
+  border: none;
+  border-radius: 3px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+
+.prompt-box .copy-btn:hover    { background: #525252; }
+.prompt-box .copy-btn.copied   { background: #00843d; color: #fff; }
+
+.prompt-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #525252;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+}
+
+/* ── Callout Boxes ────────────────────────────────────────── */
+.callout {
+  border-left: 4px solid;
+  border-radius: 0 4px 4px 0;
+  padding: 0.85rem 1rem;
+  margin: 0.9rem 0;
+  font-size: 0.9rem;
+}
+
+.callout p { margin-bottom: 0.25rem; }
+.callout p:last-child { margin-bottom: 0; }
+
+.callout.tip     { border-color: #0f62fe; background: #edf5ff; }
+.callout.check   { border-color: #00843d; background: #defbe6; }
+.callout.warning { border-color: #f1c21b; background: #fdf6dd; }
+.callout.info    { border-color: #8a3ffc; background: #f6f2ff; }
+
+.callout .callout-icon {
+  font-size: 1rem;
+  margin-right: 0.35rem;
+}
+
+.callout strong { font-weight: 600; }
+
+/* ── Code / JSON snippet ──────────────────────────────────── */
+.code-block {
+  background: #f4f4f4;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem 1.1rem;
+  margin: 0.75rem 0;
+  position: relative;
+}
+
+.code-block pre {
+  font-family: 'IBM Plex Mono', 'Consolas', monospace;
+  font-size: 0.82rem;
+  color: #161616;
+  white-space: pre;
+  overflow-x: auto;
+  margin: 0;
+  padding-right: 3.5rem;
+}
+
+.code-block .copy-btn {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  background: #e0e0e0;
+  color: #161616;
+  border: none;
+  border-radius: 3px;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  font-family: 'IBM Plex Sans', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.code-block .copy-btn:hover  { background: #c6c6c6; }
+.code-block .copy-btn.copied { background: #00843d; color: #fff; }
+
+/* ── Track Chooser (index page) ───────────────────────────── */
+.track-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+@media (max-width: 560px) { .track-grid { grid-template-columns: 1fr; } }
+
+.track-card {
+  display: block;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: #161616;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  background: #fff;
+}
+
+.track-card:hover {
+  border-color: #00843d;
+  box-shadow: 0 2px 10px rgba(0,132,61,0.12);
+}
+
+.track-card .track-icon { font-size: 2rem; margin-bottom: 0.5rem; display: block; }
+.track-card h3          { font-size: 1rem; font-weight: 700; margin-bottom: 0.4rem; }
+.track-card p           { font-size: 0.875rem; color: #525252; margin: 0; }
+
+/* ── Accordion (GitHub signup optional section) ───────────── */
+details.optional {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin: 0.75rem 0;
+}
+
+details.optional > summary {
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f4f4f4;
+  border-radius: 4px;
+  user-select: none;
+}
+
+details.optional > summary::before { content: '▶'; font-size: 0.7rem; }
+details.optional[open] > summary::before { content: '▼'; }
+
+details.optional .optional-body {
+  padding: 1rem 1.1rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+/* ── Bottom Nav ───────────────────────────────────────────── */
+.bottom-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: 2px solid transparent;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.btn-primary { background: #00843d; color: #fff; }
+.btn-primary:hover { background: #005a29; }
+
+.btn-ghost { background: transparent; color: #00843d; border-color: #00843d; }
+.btn-ghost:hover { background: #defbe6; }
+
+/* ── Footer ───────────────────────────────────────────────── */
+.site-footer {
+  text-align: center;
+  font-size: 0.78rem;
+  color: #8d8d8d;
+  padding: 2rem 0 1rem;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 3rem;
+}
+
+/* ── Utility ──────────────────────────────────────────────── */
+.tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.15rem 0.5rem;
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tag.bw          { background: #defbe6; color: #0e6027; }
+.tag.databricks  { background: #fff0f0; color: #a2191f; }
+.tag.both        { background: #edf5ff; color: #0043ce; }
+.tag.optional    { background: #f6f2ff; color: #491d8b; }
+
+.divider {
+  border: none;
+  border-top: 1px solid #e0e0e0;
+  margin: 1.5rem 0;
+}
+
+.muted { color: #525252; font-size: 0.875rem; }
+
+@media (max-width: 600px) {
+  .page-header h1 { font-size: 1.4rem; }
+  .section        { padding: 1.25rem; }
+}
